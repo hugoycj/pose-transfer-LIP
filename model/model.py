@@ -1,7 +1,7 @@
 import torch.nn as nn
 import torch.nn.functional as F
 from base import BaseModel
-
+from torchvision import models
 
 class MnistModel(BaseModel):
     def __init__(self, num_classes=10):
@@ -20,3 +20,12 @@ class MnistModel(BaseModel):
         x = F.dropout(x, training=self.training)
         x = self.fc2(x)
         return F.log_softmax(x, dim=1)
+
+class DeeplabV3PlusModel(BaseModel):
+    def __init__(self, num_classes=10):
+        super().__init__()
+        self.model = models.segmentation.deeplabv3_resnet50(pretrained=False, progress=True, num_classes=num_classes)
+
+
+    def forward(self, x):
+        return self.model(x)
