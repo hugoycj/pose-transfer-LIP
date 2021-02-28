@@ -1,6 +1,5 @@
-import sys
-sys.path.append("/home/hugoycj/Insync/118010378@link.cuhk.edu.cn/OneDrive Biz/06Workspace/02Internship/064Parsing/Implementation_Code/pose-transfer-LIP")
-sys.path.append('../')
+# import sys
+# sys.path.append('../')
 
 import torch.nn as nn
 import torch.nn.functional as F
