@@ -54,7 +54,7 @@ class BaseDataLoader(DataLoader):
 
         return train_sampler, valid_sampler
 
-    def split_validation(self):
+    def get_validation(self):
         if self.valid_sampler is None:
             return None
         else:
