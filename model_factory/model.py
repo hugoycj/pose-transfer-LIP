@@ -1,7 +1,15 @@
+import sys
+sys.path.append("/home/hugoycj/Insync/118010378@link.cuhk.edu.cn/OneDrive Biz/06Workspace/02Internship/064Parsing/Implementation_Code/pose-transfer-LIP")
+sys.path.append('../')
+
 import torch.nn as nn
 import torch.nn.functional as F
+from torchsummary import summary
+
 from base import BaseModel
-from torchvision import models
+from model_factory.segmentation_head import deeplabv3_resnet50
+from model_factory.segmentation_head.deeplabv3 import DeepLabHead
+
 
 class MnistModel(BaseModel):
     def __init__(self, num_classes=10):
@@ -22,10 +30,15 @@ class MnistModel(BaseModel):
         return F.log_softmax(x, dim=1)
 
 class DeeplabV3PlusModel(BaseModel):
-    def __init__(self, num_classes=10):
+    def __init__(self, num_classes=20):
         super().__init__()
-        self.model = models.segmentation.deeplabv3_resnet50(pretrained=False, progress=True, num_classes=num_classes)
-
+        self.model = deeplabv3_resnet50(pretrained=True, progress=True)
+        self.model.classifier = DeepLabHead(2048, num_classes)
 
     def forward(self, x):
-        return self.model(x)
+        return self.model(x)['out']
+
+if __name__ == '__main__':
+    im_size = 320
+    model = DeeplabV3PlusModel()
+    summary(model, input_size=(3, im_size, im_size))
