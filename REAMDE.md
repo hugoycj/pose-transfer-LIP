@@ -8,7 +8,7 @@
 * Use pretrained centernet's backbone weight to do human parsing
 
 ## TODO List:
-- [ ] Retrain on Look-into-person dataset
-- [ ] Add hourglass backbone
-- [ ] 
+- [x] Retrain on Look-into-person dataset
+- [ ] Add hourglass encoded feature
+- [ ] Train with encoded feature
 - [ ] Finetune on Look-into-person dataset

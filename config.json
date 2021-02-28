@@ -3,14 +3,17 @@
     "n_gpu": 1,
 
     "arch": {
-        "type": "MnistModel",
-        "args": {}
+        "type": "DeeplabV3PlusModel",
+        "args": {
+            "num_classes": 20
+        }
     },
     "data_loader": {
-        "type": "MnistDataLoader",
+        "type": "LipDataLoader",
         "args":{
             "data_dir": "data/",
-            "batch_size": 128,
+            "batch_size": 2,
+            "num_classes": 20,
             "shuffle": true,
             "validation_split": 0.1,
             "num_workers": 2
@@ -24,7 +27,7 @@
             "amsgrad": true
         }
     },
-    "loss": "nll_loss",
+    "loss": "CE_loss",
     "metrics": [
         "accuracy", "top_k_acc"
     ],
